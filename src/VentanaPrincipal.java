@@ -139,7 +139,14 @@ public class VentanaPrincipal {
 	 * Método que inicializa todos los lísteners que necesita inicialmente el programa
 	 */
 	public void inicializarListeners(){
-		//TODO
+		botonEmpezar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				juego.depurarTablero();
+				
+			}
+		});
 	}
 	
 	

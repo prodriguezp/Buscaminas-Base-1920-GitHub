@@ -31,24 +31,35 @@ public class ControlJuego {
 	/**Método para generar un nuevo tablero de partida:
 	 * @pre: La estructura tablero debe existir. 
 	 * @post: Al final el tablero se habrá inicializado con tantas minas como marque la variable MINAS_INICIALES. 
-	 * 			El resto de posiciones que no son minas guardan en el entero cuántas minas hay alrededor de la celda
+	 * 	El resto de posiciones que no son minas guardan en el entero cuántas minas hay alrededor de la celda
 	 */
 	public void inicializarPartida(){
 
 		//TODO: Repartir minas e inicializar puntaci�n. Si hubiese un tablero anterior, lo pongo todo a cero para inicializarlo.
-		
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero[i].length; j++) {
+				if(a�adirMina()) {
+					tablero[i][j]=-1;
+				}
+			}
+		}
 		
 		
 		//Al final del m�todo hay que guardar el n�mero de minas para las casillas que no son mina:
-		for (int i = 0; i < tablero.length; i++) {
-			for (int j = 0; j < tablero[i].length; j++) {
-				if (tablero[i][j] != MINA){
-					tablero[i][j] = calculoMinasAdjuntas(i,j);
+		for (int i2 = 0; i2 < tablero.length; i2++) {
+			for (int j2 = 0; j2 < tablero[i2].length; j2++) {
+				if (tablero[i2][j2] != MINA){
+					tablero[i2][j2] = calculoMinasAdjuntas(i2,j2);
 				}
 			}
 		}
 	}
 	
+	private boolean a�adirMina() {
+		return Math.random() > 0.7;
+	}
+
+
 	/**Cálculo de las minas adjuntas: 
 	 * Para calcular el número de minas tenemos que tener en cuenta que no nos salimos nunca del tablero.
 	 * Por lo tanto, como mucho la i y la j valdrán LADO_TABLERO-1.
@@ -58,7 +69,25 @@ public class ControlJuego {
 	 * @return : El número de minas que hay alrededor de la casilla [i][j]
 	 **/
 	private int calculoMinasAdjuntas(int i, int j){
-		return 0;
+		int contadorMinas = 0;
+		
+		
+		int coordI = i-1;		
+		int coordJ = j-1;
+
+		if(coordI<0) { coordI=0;}
+		if(coordJ<0) { coordJ=0;}
+		
+		if(coordI>(LADO_TABLERO-1)) { coordI=LADO_TABLERO-1;}
+		if(coordJ>(LADO_TABLERO-1)) { coordJ=LADO_TABLERO-1;}
+		
+		for (int k = coordI; k < 2; k++) {
+			for (int k2 = coordJ; k2 < 2; k2++) {
+				if(tablero[k][k2]==-1) {contadorMinas++;}
+			}
+		}
+		
+		return contadorMinas;
 	}
 	
 	/**
