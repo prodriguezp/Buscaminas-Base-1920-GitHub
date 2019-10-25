@@ -1,9 +1,17 @@
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URL;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -169,16 +177,41 @@ public class VentanaPrincipal {
 	 * - 4 ó más : rojo 
 	 * @param i: posición vertical de la celda.
 	 * @param j: posición horizontal de la celda.
+	 * 
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
+		if(juego.tablero[i][j]==0) {
+			int inicioI = i-1;		
+			int inicioJ = j-1;
+			int finalI = i+1;
+			int finalj = j+1;
+			
+			if(inicioI<0) { inicioI=0;}
+			if(inicioJ<0) { inicioJ=0;}
+			
+			if(finalI>(juego.LADO_TABLERO-1)) { finalI=juego.LADO_TABLERO-1;}
+			if(finalj>(juego.LADO_TABLERO-1)) { finalj=juego.LADO_TABLERO-1;}
+			
+			for (int k = inicioI; k <= finalI; k++) {
+				for (int k2 = inicioJ; k2 <= finalj; k2++) {
+					cambirBotonporLabel(k, k2);					
+				}
+			}
+			
+		}
+		else {
+			cambirBotonporLabel(i, j);
+		}
+		
+		refrescarPantalla();
+	}
+	public void cambirBotonporLabel(int i, int j) {	
 		panelesJuego[i][j].removeAll();
 		JLabel label = new JLabel(Integer.toString(juego.tablero[i][j]));
 		label.setForeground(correspondenciaColores[juego.tablero[i][j]]);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		panelesJuego[i][j].add(label);
-		refrescarPantalla();
+		panelesJuego[i][j].add(label);	
 	}
-	
 	
 	/**
 	 * Muestra una ventana que indica el fin del juego
@@ -187,10 +220,21 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
 		if(porExplosion) {
-			JOptionPane.showMessageDialog(null, "Has caido en una mina, perdistes!");			
+			//sonido();
+			JOptionPane.showMessageDialog(null, "Has caido en una mina, perdistes!");	
+			
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Ganastes!");
+		}
+	}
+
+	public void sonido() {		
+		try {
+			AudioClip clip = Applet.newAudioClip(new URL("http://www.wavlist.com/soundfx/011/duck-quack1.wav"));
+			clip.loop();
+		} catch (Exception e) {		
+			System.out.println(e.getMessage());
 		}
 	}
 
