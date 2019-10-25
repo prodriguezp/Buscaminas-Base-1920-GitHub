@@ -15,7 +15,7 @@ public class ControlJuego {
 	final int MINAS_INICIALES = 20;
 	final int LADO_TABLERO = 10;
 
-	private int [][] tablero;
+	int [][] tablero;
 	private int puntuacion;
 	
 	

@@ -171,7 +171,12 @@ public class VentanaPrincipal {
 	 * @param j: posición horizontal de la celda.
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
-		//TODO
+		panelesJuego[i][j].removeAll();
+		JLabel label = new JLabel(Integer.toString(juego.tablero[i][j]));
+		label.setForeground(correspondenciaColores[juego.tablero[i][j]]);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		panelesJuego[i][j].add(label);
+		refrescarPantalla();
 	}
 	
 	
@@ -181,14 +186,20 @@ public class VentanaPrincipal {
 	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el juego.
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
-		//TODO
+		if(porExplosion) {
+			JOptionPane.showMessageDialog(null, "Has caido en una mina, perdistes!");			
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Ganastes!");
+		}
 	}
 
 	/**
 	 * Método que muestra la puntuación por pantalla.
 	 */
 	public void actualizarPuntuacion() {
-		//TODO
+		int puntuacionNueva=Integer.parseInt(pantallaPuntuacion.getText())+1;
+		pantallaPuntuacion.setText(Integer.toString(puntuacionNueva));
 	}
 	
 	/**

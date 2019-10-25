@@ -2,6 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -28,13 +29,16 @@ public class ActionBoton implements ActionListener{
 	 *Acción que ocurrirá cuando pulsamos uno de los botones.
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		JPanel panel =  new JPanel();
-		JLabel label = new JLabel("o");
-		panel.add(label);
-		marco.panelesJuego[i][j] = panel;
-		System.out.println(2);
-		marco.refrescarPantalla();
+	public void actionPerformed(ActionEvent e) {		
+		if(marco.juego.tablero[i][j] != -1) {
+			marco.mostrarNumMinasAlrededor(i, j);
+			marco.actualizarPuntuacion();
+		}
+		else {
+			 marco.mostrarFinJuego(true);
+		}
+		
+		
 	}
 
 }
