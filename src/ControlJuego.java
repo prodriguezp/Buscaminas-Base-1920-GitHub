@@ -41,6 +41,9 @@ public class ControlJuego {
 				if(añadirMina()) {
 					tablero[i][j]=-1;
 				}
+				else {
+					tablero[i][j]=0;
+				}
 			}
 		}
 		
@@ -69,21 +72,24 @@ public class ControlJuego {
 	 * @return : El nÃºmero de minas que hay alrededor de la casilla [i][j]
 	 **/
 	private int calculoMinasAdjuntas(int i, int j){
-		int contadorMinas = 0;
+		int contadorMinas = 0;	
 		
+		int inicioI = i-1;		
+		int inicioJ = j-1;
+		int finalI = i+1;
+		int finalj = j+1;
 		
-		int coordI = i-1;		
-		int coordJ = j-1;
-
-		if(coordI<0) { coordI=0;}
-		if(coordJ<0) { coordJ=0;}
+		if(inicioI<0) { inicioI=0;}
+		if(inicioJ<0) { inicioJ=0;}
 		
-		if(coordI>(LADO_TABLERO-1)) { coordI=LADO_TABLERO-1;}
-		if(coordJ>(LADO_TABLERO-1)) { coordJ=LADO_TABLERO-1;}
+		if(finalI>(LADO_TABLERO-1)) { finalI=LADO_TABLERO-1;}
+		if(finalj>(LADO_TABLERO-1)) { finalj=LADO_TABLERO-1;}
 		
-		for (int k = coordI; k < 2; k++) {
-			for (int k2 = coordJ; k2 < 2; k2++) {
-				if(tablero[k][k2]==-1) {contadorMinas++;}
+		for (int k = inicioI; k <= finalI; k++) {
+			for (int k2 = inicioJ; k2 <= finalj; k2++) {
+					if((tablero[k][k2])==-1) {						
+						contadorMinas++;
+					}										
 			}
 		}
 		

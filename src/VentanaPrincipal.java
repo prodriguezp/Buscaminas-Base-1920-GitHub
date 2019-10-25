@@ -143,10 +143,18 @@ public class VentanaPrincipal {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				juego.inicializarPartida();
 				juego.depurarTablero();
 				
 			}
 		});
+		for (int i = 0; i < botonesJuego.length; i++) {
+			for (int j = 0; j < botonesJuego[i].length; j++) {
+				botonesJuego [i][j].addActionListener(new ActionBoton(this,i,j));
+			}
+		}
+		
+		
 	}
 	
 	
