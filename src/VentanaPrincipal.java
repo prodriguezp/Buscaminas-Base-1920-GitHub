@@ -6,12 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URL;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +18,7 @@ import javax.swing.SwingConstants;
 
 
 public class VentanaPrincipal {
+
 
 	//La ventana principal, en este caso, guarda todos los componentes:
 	JFrame ventana;
@@ -151,6 +147,15 @@ public class VentanaPrincipal {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				for (int i = 0; i < botonesJuego.length; i++) {
+					for (int j = 0; j < botonesJuego[i].length; j++) {
+						panelesJuego[i][j].removeAll();
+						pantallaPuntuacion.setText("0");
+						botonesJuego[i][j].setEnabled(true);
+						panelesJuego[i][j].add(botonesJuego[i][j]);
+					}
+				}
+				refrescarPantalla();
 				juego.inicializarPartida();
 				juego.depurarTablero();
 				
@@ -220,8 +225,12 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
 		if(porExplosion) {
-			//sonido();
-			JOptionPane.showMessageDialog(null, "Has caido en una mina, perdistes!");	
+			JOptionPane.showMessageDialog(null, "Has caido en una mina, perdistes!");
+			for (int i = 0; i < botonesJuego.length; i++) {
+				for (int j = 0; j < botonesJuego[i].length; j++) {
+					botonesJuego[i][j].setEnabled(false);
+				}
+			}
 			
 		}
 		else {
@@ -229,21 +238,16 @@ public class VentanaPrincipal {
 		}
 	}
 
-	public void sonido() {		
-		try {
-			AudioClip clip = Applet.newAudioClip(new URL("http://www.wavlist.com/soundfx/011/duck-quack1.wav"));
-			clip.loop();
-		} catch (Exception e) {		
-			System.out.println(e.getMessage());
-		}
-	}
-
+	
 	/**
 	 * Método que muestra la puntuación por pantalla.
 	 */
 	public void actualizarPuntuacion() {
 		int puntuacionNueva=Integer.parseInt(pantallaPuntuacion.getText())+1;
 		pantallaPuntuacion.setText(Integer.toString(puntuacionNueva));
+		panelImagen.removeAll();
+		panelImagen.add(new JLabel("hola"));
+		refrescarPantalla();
 	}
 	
 	/**
