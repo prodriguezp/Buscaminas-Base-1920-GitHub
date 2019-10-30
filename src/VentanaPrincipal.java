@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 
 public class VentanaPrincipal {
@@ -152,6 +155,7 @@ public class VentanaPrincipal {
 						panelesJuego[i][j].removeAll();
 						pantallaPuntuacion.setText("0");
 						botonesJuego[i][j].setEnabled(true);
+						botonesJuego[i][j].setText("-");
 						panelesJuego[i][j].add(botonesJuego[i][j]);
 					}
 				}
@@ -167,7 +171,11 @@ public class VentanaPrincipal {
 			}
 		}
 		
-		
+		for (int i = 0; i < botonesJuego.length; i++) {
+			for (int j = 0; j < botonesJuego[i].length; j++) {
+				botonesJuego [i][j].addMouseListener(new ClickDerecho(i, j, this));
+			}
+		}
 	}
 	
 	

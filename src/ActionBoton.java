@@ -29,7 +29,7 @@ public class ActionBoton implements ActionListener{
 	 *Acción que ocurrirá cuando pulsamos uno de los botones.
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {		
+	public void actionPerformed(ActionEvent e) {	
 		if(marco.juego.tablero[i][j] != -1) {
 			marco.mostrarNumMinasAlrededor(i, j);
 			marco.actualizarPuntuacion();
