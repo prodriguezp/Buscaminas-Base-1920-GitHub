@@ -192,7 +192,8 @@ public class VentanaPrincipal {
 	 * @param j: posición horizontal de la celda.
 	 * 
 	 */
-	public void mostrarNumMinasAlrededor(int i , int j) {
+	public void mostrarNumMinasAlrededor(int i , int j) {	
+		cambirBotonporLabel(i, j);	
 		if(juego.tablero[i][j]==0) {
 			int inicioI = i-1;		
 			int inicioJ = j-1;
@@ -207,20 +208,17 @@ public class VentanaPrincipal {
 			
 			for (int k = inicioI; k <= finalI; k++) {
 				for (int k2 = inicioJ; k2 <= finalj; k2++) {
-					cambirBotonporLabel(k, k2);					
+					if(panelesJuego[k][k2].gte)
+					botonesJuego[k][k2].doClick();
 				}
 			}
-			
-		}
-		else {
-			cambirBotonporLabel(i, j);
 		}
 		
 		refrescarPantalla();
 	}
 	public void cambirBotonporLabel(int i, int j) {	
 		panelesJuego[i][j].removeAll();
-		JLabel label = new JLabel(Integer.toString(juego.tablero[i][j]));
+		JLabel label = new JLabel(Integer.toString(juego.getMinasAlrededor(i, j)));
 		label.setForeground(correspondenciaColores[juego.tablero[i][j]]);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		panelesJuego[i][j].add(label);	
@@ -253,9 +251,7 @@ public class VentanaPrincipal {
 	public void actualizarPuntuacion() {
 		int puntuacionNueva=Integer.parseInt(pantallaPuntuacion.getText())+1;
 		pantallaPuntuacion.setText(Integer.toString(puntuacionNueva));
-		panelImagen.removeAll();
-		panelImagen.add(new JLabel("hola"));
-		refrescarPantalla();
+		//refrescarPantalla();
 	}
 	
 	/**
