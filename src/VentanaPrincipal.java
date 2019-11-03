@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
  * El boton de Go! empieza la partida
  * Todos los botones al pulsar se convierte en JLabel, a excepcion de las minas.
  * Los listener se incializan en este metodo  {@link #inicializarListeners()}
- * Codigo de incializar
+ * Codigo de incializar {@code #inicializarListeners()}
  * @author Pedro Luis
  *
  */
