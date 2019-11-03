@@ -11,6 +11,8 @@ import java.util.Random;
  *
  */
 public class ControlJuego {
+	String nombreJugador;
+	
 	private final static int MINA = -1;
 	final int MINAS_INICIALES = 20;
 	final int LADO_TABLERO = 10;
@@ -18,6 +20,7 @@ public class ControlJuego {
 	int [][] tablero;
 	private int puntuacion;
 	
+	int casillasAbiertas = 0; 
 	
 	public ControlJuego() {
 		//Creamos el tablero:
@@ -27,6 +30,12 @@ public class ControlJuego {
 		inicializarPartida();
 	}
 	
+	/**
+	 * Modificar puntuacion
+	 */
+	public void aumentarPunto() {
+		puntuacion++;
+	}
 	
 	/**MÃ©todo para generar un nuevo tablero de partida:
 	 * @pre: La estructura tablero debe existir. 
@@ -34,11 +43,13 @@ public class ControlJuego {
 	 * 	El resto de posiciones que no son minas guardan en el entero cuÃ¡ntas minas hay alrededor de la celda
 	 */
 	public void inicializarPartida(){
-
+		puntuacion = 0;
+		int numMinas = 0;
 		//TODO: Repartir minas e inicializar puntaciï¿½n. Si hubiese un tablero anterior, lo pongo todo a cero para inicializarlo.
 		for (int i = 0; i < tablero.length; i++) {
 			for (int j = 0; j < tablero[i].length; j++) {
-				if(añadirMina()) {
+				if(añadirMina() && numMinas<20) {
+					numMinas++;
 					tablero[i][j]=-1;
 				}
 				else {

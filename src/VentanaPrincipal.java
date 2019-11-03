@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -156,9 +157,10 @@ public class VentanaPrincipal {
 						pantallaPuntuacion.setText("0");
 						botonesJuego[i][j].setEnabled(true);
 						botonesJuego[i][j].setText("-");
-						panelesJuego[i][j].add(botonesJuego[i][j]);
+						panelesJuego[i][j].add(botonesJuego[i][j]);						
 					}
 				}
+				juego.nombreJugador = JOptionPane.showInputDialog("Introduce tu nombre: ");
 				refrescarPantalla();
 				juego.inicializarPartida();
 				juego.depurarTablero();
@@ -208,8 +210,10 @@ public class VentanaPrincipal {
 			
 			for (int k = inicioI; k <= finalI; k++) {
 				for (int k2 = inicioJ; k2 <= finalj; k2++) {
-					if(panelesJuego[k][k2].gte)
-					botonesJuego[k][k2].doClick();
+					if(panelesJuego[k][k2].getComponent(0) instanceof JButton) {
+						botonesJuego[k][k2].doClick();
+					}
+					
 				}
 			}
 		}
@@ -230,27 +234,43 @@ public class VentanaPrincipal {
 	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el juego.
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
+		String cadenaMensaje;		
+		Utilidad.añadir(juego.nombreJugador,juego.getPuntuacion());
+		ArrayList<Jugador> jugadores = Utilidad.getTop();	
 		if(porExplosion) {
-			JOptionPane.showMessageDialog(null, "Has caido en una mina, perdistes!");
-			for (int i = 0; i < botonesJuego.length; i++) {
-				for (int j = 0; j < botonesJuego[i].length; j++) {
-					botonesJuego[i][j].setEnabled(false);
-				}
-			}
+			cadenaMensaje="Has caido en una mina, perdistes! \n"
+					+ "Puntuación: "+juego.getPuntuacion();
+			jugadores = Utilidad.getTop();	
+			
 			
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Ganastes!");
+			cadenaMensaje="Ganastes! \n" + 
+					"Puntuación: "+juego.getPuntuacion()+"\n";
+			for (int i = 0; i < jugadores.size(); i++) {
+				cadenaMensaje+=(i+1)+"º-- "+jugadores.get(i).getNombre()+" = "+jugadores.get(i).getPuntuaje()+"\n";
+			}
 		}
+		
+		
+		JOptionPane.showMessageDialog(null, cadenaMensaje);						
+		descativarBotones();
+		
 	}
 
-	
+	private void descativarBotones() {		
+		for (int i = 0; i < botonesJuego.length; i++) {
+			for (int j = 0; j < botonesJuego[i].length; j++) {
+				botonesJuego[i][j].setEnabled(false);
+			}
+		}
+	}
 	/**
 	 * MÃ©todo que muestra la puntuaciÃ³n por pantalla.
 	 */
 	public void actualizarPuntuacion() {
-		int puntuacionNueva=Integer.parseInt(pantallaPuntuacion.getText())+1;
-		pantallaPuntuacion.setText(Integer.toString(puntuacionNueva));
+		juego.aumentarPunto();
+		pantallaPuntuacion.setText(Integer.toString(juego.getPuntuacion()));
 		//refrescarPantalla();
 	}
 	
