@@ -20,7 +20,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-
+/**
+ * Clase VentanaPrincipal que guarda todos los componentes de la interzaz del buscaminas.
+ * El boton de Go! empieza la partida
+ * Todos los botones al pulsar se convierte en JLabel, a excepcion de las minas.
+ * Los listener se incializan en este metodo  {@link #inicializarListeners()}
+ * Codigo de incializar
+ * @author Pedro Luis
+ *
+ */
 public class VentanaPrincipal {
 
 
@@ -55,7 +63,9 @@ public class VentanaPrincipal {
 		juego = new ControlJuego();
 	}
 	
-	//Inicializa todos los componentes del frame
+	/**
+	 * Metodo que crea todos los componentes de la interzaf y los posiciona en el JFrame
+	 */
 	public void inicializarComponentes(){
 		
 		//Definimos el layout:
@@ -231,7 +241,7 @@ public class VentanaPrincipal {
 	/**
 	 * Muestra una ventana que indica el fin del juego
 	 * @param porExplosion : Un booleano que indica si es final del juego porque ha explotado una mina (true) o bien porque hemos desactivado todas (false) 
-	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el juego.
+	 * Todos los botones se desactivan excepto el de volver a iniciar el juego.
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
 		String cadenaMensaje;		

@@ -33,7 +33,7 @@ public class ActionBoton implements ActionListener{
 		if(marco.juego.tablero[i][j] != -1) {
 			marco.mostrarNumMinasAlrededor(i, j);
 			marco.actualizarPuntuacion();
-			if(marco.juego.getPuntuacion() == 10) {
+			if(marco.juego.getPuntuacion() == (marco.juego.LADO_TABLERO*marco.juego.LADO_TABLERO)-20) {
 				marco.mostrarFinJuego(false);
 			}
 		}
