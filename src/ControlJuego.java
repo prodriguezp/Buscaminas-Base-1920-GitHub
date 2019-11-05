@@ -86,7 +86,13 @@ public class ControlJuego {
 	 **/
 	private int calculoMinasAdjuntas(int i, int j){
 		int contadorMinas = 0;	
-		
+		/*
+		 * Resumido 
+		 * iInical Math.min(0, i-1)
+		 * jInical Math.min(0, j-1)
+		 * iFinal Math.max(LADO_TABLERO-1, i+1)
+		 * jFinal Math.max(LADO_TABLERO-1, J+1)
+		 */
 		int inicioI = i-1;		
 		int inicioJ = j-1;
 		int finalI = i+1;
